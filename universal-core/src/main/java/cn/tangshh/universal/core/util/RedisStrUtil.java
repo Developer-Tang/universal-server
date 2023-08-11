@@ -28,10 +28,10 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * 拼接值
+     * 拼接value
      *
      * @param key   key
-     * @param value 值
+     * @param value value
      * @return {@link Integer} 长度
      */
     public static Integer append(String key, String value) {
@@ -39,7 +39,7 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * 指定key的值+指定值
+     * 指定key的value+指定value
      *
      * @param key       key
      * @param increment 增量步长
@@ -50,7 +50,7 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * 指定key的值+指定值
+     * 指定key的value+指定value
      *
      * @param key       key
      * @param increment 增量步长
@@ -61,7 +61,7 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * 指定key的值+1
+     * 指定key的value+1
      *
      * @param key key
      * @return {@link Long} 增量后结果
@@ -71,7 +71,7 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * 指定key的值-指定值
+     * 指定key的value-指定value
      *
      * @param key       key
      * @param decrement 递减步长
@@ -82,7 +82,7 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * 指定key的值+1
+     * 指定key的value+1
      *
      * @param key key
      */
@@ -91,20 +91,20 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * 设置值
+     * 设置value
      *
      * @param key   key
-     * @param value 值
+     * @param value value
      */
     public static void set(String key, Object value) {
         OPERATIONS.set(key, JacksonUtil.toJson(value));
     }
 
     /**
-     * 设置值并设置有效期
+     * 设置value并设置有效期
      *
      * @param key       key
-     * @param value     值
+     * @param value     value
      * @param validTime 有效时间/s
      */
     public static void setEx(String key, Object value, long validTime) {
@@ -112,10 +112,10 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * 设置值并设置有效期
+     * 设置value并设置有效期
      *
      * @param key       key
-     * @param value     值
+     * @param value     value
      * @param validTime 有效时间
      * @param unit      单位
      */
@@ -126,10 +126,10 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * 设置值并设置有效期
+     * 设置value并设置有效期
      *
      * @param key     key
-     * @param value   值
+     * @param value   value
      * @param timeout 有效时间
      */
     public static void setEx(String key, Object value, Duration timeout) {
@@ -137,10 +137,10 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * 当key不存在时设置值
+     * 当key不存在时设置value
      *
      * @param key   key
-     * @param value 值
+     * @param value value
      * @return boolean 是否设置成功
      */
     public static boolean setNx(String key, Object value) {
@@ -148,10 +148,10 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * 当key不存在时设置值
+     * 当key不存在时设置value
      *
      * @param key       key
-     * @param value     值
+     * @param value     value
      * @param validTime 有效时间/s
      * @return boolean 是否设置成功
      */
@@ -160,10 +160,10 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * 当key不存在时设置值
+     * 当key不存在时设置value
      *
      * @param key       key
-     * @param value     值
+     * @param value     value
      * @param validTime 有效时间
      * @param unit      单位
      * @return boolean 是否设置成功
@@ -173,7 +173,7 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * 设置多个String类型的值
+     * 设置多个String类型的value
      *
      * @param map {key:value,key:value,...}
      */
@@ -184,7 +184,7 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * 设置多个String类型的值且都不存在时
+     * 设置多个String类型的value且都不存在时
      *
      * @param map {key:value,key:value,...}
      * @return boolean
@@ -194,7 +194,7 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * 获取值
+     * 获取value
      *
      * @param key key
      * @return {@link String}
@@ -204,10 +204,10 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * 获取值
+     * 获取value
      *
      * @param key    key
-     * @param tClass 目标类class
+     * @param tClass target type class
      * @return {@link T}
      */
     public static <T> T get(String key, Class<T> tClass) {
@@ -215,7 +215,7 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * 获取值
+     * 获取value
      *
      * @param key       key
      * @param reference reference
@@ -226,7 +226,7 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * 获取多个值
+     * 获取多个value
      *
      * @param keys keys
      * @return {@link List}<{@link String}>
@@ -236,10 +236,10 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * 获取多个值
+     * 获取多个value
      *
      * @param keys   keys
-     * @param tClass 目标类class
+     * @param tClass target type class
      * @return {@link List}<{@link T}>
      */
     public static <T> List<T> batchGet(Collection<String> keys, Class<T> tClass) {
@@ -248,7 +248,7 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * 获取多个值
+     * 获取多个value
      *
      * @param keys      keys
      * @param reference reference
@@ -260,10 +260,10 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * 获取旧值并设置新值
+     * 获取旧value并设置新value
      *
      * @param key      key
-     * @param newValue 新值
+     * @param newValue 新value
      * @return {@link T}
      */
     @SuppressWarnings("unchecked")
@@ -273,7 +273,7 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * 获取值并删除
+     * 获取value并删除
      *
      * @param key key
      * @return {@link String}
@@ -283,10 +283,10 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * 获取值并删除
+     * 获取value并删除
      *
      * @param key    key
-     * @param tClass 目标类class
+     * @param tClass target type class
      * @return {@link T}
      */
     public static <T> T getAndDel(String key, Class<T> tClass) {
@@ -294,7 +294,7 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * 获取值并删除
+     * 获取value并删除
      *
      * @param key       key
      * @param reference reference

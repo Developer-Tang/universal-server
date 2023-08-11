@@ -31,6 +31,7 @@ public class SpringDocConfig {
     @Bean
     public OpenAPI openAPI() {
         return new OpenAPI()
+                // Describe info
                 .info(new Info()
                         .title(title)
                         .version(version)
@@ -38,6 +39,7 @@ public class SpringDocConfig {
                                 .name(author)
                         )
                 )
+                // Authentication component
                 .schemaRequirement(authHeader,
                         new SecurityScheme()
                                 .name(authHeader)

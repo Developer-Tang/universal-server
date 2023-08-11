@@ -46,10 +46,10 @@ public final class RedisZSetUtil extends RedisUtil {
     }
 
     /**
-     * 移除值
+     * 移除value
      *
      * @param key    key
-     * @param values 值
+     * @param values value
      * @return {@link Long}
      */
     public static Long remove(String key, Object... values) {
@@ -97,7 +97,7 @@ public final class RedisZSetUtil extends RedisUtil {
      * @param key    key
      * @param start  开始
      * @param end    结束
-     * @param tClass 目标类class
+     * @param tClass target type class
      * @return {@link Set}<{@link T}>
      */
     public static <T> Set<T> range(String key, Class<T> tClass, long start, long end) {
@@ -121,7 +121,7 @@ public final class RedisZSetUtil extends RedisUtil {
      * 排名
      *
      * @param key   key
-     * @param value 值
+     * @param value value
      * @return {@link Long}
      */
     public static Long rank(String key, Object value) {
@@ -132,7 +132,7 @@ public final class RedisZSetUtil extends RedisUtil {
      * 反向排名
      *
      * @param key   key
-     * @param value 值
+     * @param value value
      * @return {@link Long}
      */
     public static Long reverseRank(String key, Object value) {
@@ -140,10 +140,10 @@ public final class RedisZSetUtil extends RedisUtil {
     }
 
     /**
-     * 添加值
+     * 添加value
      *
      * @param key   key
-     * @param value 值
+     * @param value value
      * @return boolean
      */
     public static boolean add(String key, Object value) {
@@ -151,10 +151,10 @@ public final class RedisZSetUtil extends RedisUtil {
     }
 
     /**
-     * 添加值并设置分数
+     * 添加value并设置分数
      *
      * @param key   key
-     * @param value 值
+     * @param value value
      * @return boolean
      */
     public static boolean add(String key, Object value, double score) {
@@ -162,10 +162,10 @@ public final class RedisZSetUtil extends RedisUtil {
     }
 
     /**
-     * 批量添加值并设置分数
+     * 批量添加value并设置分数
      *
      * @param key    key
-     * @param values 值
+     * @param values value
      * @return {@link Long}
      */
     @SafeVarargs
@@ -178,10 +178,10 @@ public final class RedisZSetUtil extends RedisUtil {
     }
 
     /**
-     * 批量添加值并设置分数
+     * 批量添加value并设置分数
      *
      * @param key    key
-     * @param values 值
+     * @param values value
      * @return {@link Long}
      */
     public static Long add(String key, Set<ZSetOperations.TypedTuple<Object>> values) {
@@ -193,10 +193,10 @@ public final class RedisZSetUtil extends RedisUtil {
 
 
     /**
-     * 如果值不存在添加值
+     * 如果value不存在添加value
      *
      * @param key   key
-     * @param value 值
+     * @param value value
      * @return boolean
      */
     public static boolean addNx(String key, Object value) {
@@ -204,10 +204,10 @@ public final class RedisZSetUtil extends RedisUtil {
     }
 
     /**
-     * 如果值不存在添加值并设置分数
+     * 如果value不存在添加value并设置分数
      *
      * @param key   key
-     * @param value 值
+     * @param value value
      * @return boolean
      */
     public static boolean addNx(String key, Object value, double score) {
@@ -215,10 +215,10 @@ public final class RedisZSetUtil extends RedisUtil {
     }
 
     /**
-     * 批量如果值不存在添加值并设置分数
+     * 批量如果value不存在添加value并设置分数
      *
      * @param key    key
-     * @param values 值
+     * @param values value
      * @return {@link Long}
      */
     @SafeVarargs
@@ -231,10 +231,10 @@ public final class RedisZSetUtil extends RedisUtil {
     }
 
     /**
-     * 批量如果值不存在添加值并设置分数
+     * 批量如果value不存在添加value并设置分数
      *
      * @param key    key
-     * @param values 值
+     * @param values value
      * @return {@link Long}
      */
     public static Long addNx(String key, Set<ZSetOperations.TypedTuple<Object>> values) {

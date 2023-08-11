@@ -1,16 +1,16 @@
 package cn.tangshh.universal.core.util;
 
-import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Jackson 序列化反序列化工具
+ * Jackson's serialization and deserialization tools
  *
  * @author Tang
  * @version v1.0
@@ -27,12 +27,12 @@ public final class JacksonUtil {
     }
 
     /**
-     * 转JSON字符传
+     * Serialize to json string
      *
-     * @param value 值
+     * @param value value
      * @return {@link String}
      */
-    public static String toJson(Object value) {
+    public static String toJson(@NotNull Object value) {
         try {
             return value instanceof String ? (String) value : MAPPER.writeValueAsString(value);
         } catch (JsonProcessingException e) {
@@ -41,15 +41,12 @@ public final class JacksonUtil {
     }
 
     /**
-     * 序列化
+     * Serialize to json string
      *
-     * @param values 值
+     * @param values value
      * @return {@link String}
      */
-    public static String[] toJson(Object... values) {
-        if (values == null) {
-            return null;
-        }
+    public static String[] toJson(@NotNull Object... values) {
         String[] vs = new String[values.length];
         for (int i = 0; i < values.length; i++) {
             vs[i] = toJson(values[i]);
@@ -58,46 +55,37 @@ public final class JacksonUtil {
     }
 
     /**
-     * 序列化
+     * Serialize to json string
      *
-     * @param values 值
+     * @param values value
      * @return {@link List}<{@link String}>
      */
-    public static Collection<String> toJsons(Collection<?> values) {
-        if (values == null) {
-            return null;
-        }
+    public static Collection<String> toJsons(@NotNull Collection<?> values) {
         return values.parallelStream()
                 .map(JacksonUtil::toJson)
                 .collect(Collectors.toList());
     }
 
     /**
-     * 序列化
+     * Serialize to json string
      *
      * @param map map
      * @return {@link Map}<{@link String}, {@link String}>
      */
-    public static Map<String, String> toJsons(Map<?, ?> map) {
-        if (map == null) {
-            return null;
-        }
+    public static Map<String, String> toJsons(@NotNull Map<?, ?> map) {
         Map<String, String> strMap = new HashMap<>();
         map.forEach((k, v) -> strMap.put(toJson(k), toJson(v)));
         return strMap;
     }
 
     /**
-     * 反序列化
+     * Deserialize json string to type
      *
-     * @param value  值
-     * @param tClass 目标类class
+     * @param value  value
+     * @param tClass target type class
      * @return {@link T}
      */
-    public static <T> T parseJson(String value, Class<T> tClass) {
-        if (StrUtil.isBlank(value)) {
-            return null;
-        }
+    public static <T> T parseJson(@NotNull String value, Class<T> tClass) {
         try {
             return MAPPER.readValue(value, tClass);
         } catch (JsonProcessingException e) {
@@ -106,16 +94,13 @@ public final class JacksonUtil {
     }
 
     /**
-     * 反序列化
+     * Deserialize json string to type
      *
-     * @param value     值
+     * @param value     value
      * @param reference reference
      * @return {@link T}
      */
-    public static <T> T parseJson(String value, TypeReference<T> reference) {
-        if (StrUtil.isBlank(value)) {
-            return null;
-        }
+    public static <T> T parseJson(@NotNull String value, TypeReference<T> reference) {
         try {
             return MAPPER.readValue(value, reference);
         } catch (JsonProcessingException e) {
@@ -124,64 +109,52 @@ public final class JacksonUtil {
     }
 
     /**
-     * 反序列化
+     * Deserialize json string to type
      *
-     * @param values 值
-     * @param tClass 目标类class
+     * @param values value
+     * @param tClass target type class
      * @return {@link List}<{@link T}>
      */
-    public static <T> List<T> parseJson(List<String> values, Class<T> tClass) {
-        if (values == null) {
-            return null;
-        }
+    public static <T> List<T> parseJson(@NotNull List<String> values, Class<T> tClass) {
         return values.parallelStream()
                 .map(e -> parseJson(e, tClass))
                 .collect(Collectors.toList());
     }
 
     /**
-     * 反序列化
+     * Deserialize json string to type
      *
-     * @param values    值
+     * @param values    value
      * @param reference reference
      * @return {@link List}<{@link T}>
      */
-    public static <T> List<T> parseJson(List<String> values, TypeReference<T> reference) {
-        if (values == null) {
-            return null;
-        }
+    public static <T> List<T> parseJson(@NotNull List<String> values, TypeReference<T> reference) {
         return values.parallelStream()
                 .map(e -> parseJson(e, reference))
                 .collect(Collectors.toList());
     }
 
     /**
-     * 反序列化
+     * Deserialize json string to type
      *
-     * @param values 值
-     * @param tClass 目标类class
+     * @param values value
+     * @param tClass target type class
      * @return {@link List}<{@link T}>
      */
-    public static <T> Set<T> parseJson(Set<String> values, Class<T> tClass) {
-        if (values == null) {
-            return null;
-        }
+    public static <T> Set<T> parseJson(@NotNull Set<String> values, Class<T> tClass) {
         return values.parallelStream()
                 .map(e -> parseJson(e, tClass))
                 .collect(Collectors.toSet());
     }
 
     /**
-     * 反序列化
+     * Deserialize json string to type
      *
-     * @param values    值
+     * @param values    value
      * @param reference reference
      * @return {@link Set}<{@link T}>
      */
-    public static <T> Set<T> parseJson(Set<String> values, TypeReference<T> reference) {
-        if (values == null) {
-            return null;
-        }
+    public static <T> Set<T> parseJson(@NotNull Set<String> values, TypeReference<T> reference) {
         return values.parallelStream()
                 .map(e -> parseJson(e, reference))
                 .collect(Collectors.toSet());

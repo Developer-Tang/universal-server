@@ -24,7 +24,7 @@ public final class RegexUtil {
      *
      * @param str     原String
      * @param regex   正则表达式
-     * @param replace 替换的值
+     * @param replace 替换的value
      * @return {@link String} 替换结果
      */
     public static String regexReplace(String str, String regex, String replace) {

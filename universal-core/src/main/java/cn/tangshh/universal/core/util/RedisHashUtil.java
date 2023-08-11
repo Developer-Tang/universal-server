@@ -1,7 +1,8 @@
 package cn.tangshh.universal.core.util;
 
 
-import com.fasterxml.jackson.core.type.TypeReference;
+import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.ScanOptions;
@@ -9,7 +10,7 @@ import org.springframework.data.redis.core.ScanOptions;
 import java.util.*;
 
 /**
- * Redis Hash类型 工具类
+ * Redis Hash Util
  *
  * @author Tang
  * @version v1.0
@@ -25,35 +26,36 @@ public final class RedisHashUtil extends RedisUtil {
     }
 
     /**
-     * 查询集合大小
+     * query hash key size
      *
      * @param key key
      * @return {@link Long}
      */
-    public static Long size(String key) {
+    public static long size(@NotNull String key) {
         return OPERATIONS.size(key);
     }
 
     /**
-     * 是否存在 hashKey
+     * Is exist hash key
      *
      * @param key     key
-     * @param hashKey hashKey
+     * @param hashKey hash key
      * @return boolean
      */
-    public static boolean hasKey(String key, Object hashKey) {
-        return Boolean.TRUE.equals(OPERATIONS.hasKey(key, JacksonUtil.toJson(hashKey)));
+    public static boolean hasKey(@NotNull String key, @NotNull Object hashKey) {
+        return OPERATIONS.hasKey(key, JacksonUtil.toJson(hashKey));
     }
 
     /**
-     * 指定hashKey的值+指定值
+     * Scan key by expression
      *
-     * @param key key
-     * @return {@link Double} 增量后结果
+     * @param key        key
+     * @param expression scan expression
+     * @return {@link Map}<{@link String}, {@link String}>
      */
-    public static Map<String, String> scan(String key, String pattern) {
+    public static Map<String, String> scan(@NotNull String key, @NotNull String expression) {
         Map<String, String> strMap = new HashMap<>();
-        try (Cursor<Map.Entry<String, String>> cursor = OPERATIONS.scan(key, ScanOptions.scanOptions().match(pattern).build())) {
+        try (Cursor<Map.Entry<String, String>> cursor = OPERATIONS.scan(key, ScanOptions.scanOptions().match(expression).build())) {
             while (cursor.hasNext()) {
                 Map.Entry<String, String> next = cursor.next();
                 strMap.put(next.getKey(), next.getValue());
@@ -63,318 +65,179 @@ public final class RedisHashUtil extends RedisUtil {
     }
 
     /**
-     * 获取所有 hashKey
+     * Get all hash key
      *
      * @param key key
      * @return {@link Set}<{@link String}>
      */
-    public static Set<String> keys(String key) {
+    public static Set<String> keys(@NotNull String key) {
         return OPERATIONS.keys(key);
     }
 
     /**
-     * 获取所有 hashKey
-     *
-     * @param key    key
-     * @param tClass 目标类class
-     * @return {@link Set}<{@link T}>
-     */
-    public static <T> Set<T> keys(String key, Class<T> tClass) {
-        return JacksonUtil.parseJson(keys(key), tClass);
-    }
-
-    /**
-     * 获取所有 hashKey
-     *
-     * @param key       key
-     * @param reference reference
-     * @return {@link Set}<{@link T}>
-     */
-    public static <T> Set<T> keys(String key, TypeReference<T> reference) {
-        return JacksonUtil.parseJson(keys(key), reference);
-    }
-
-    /**
-     * 获取 hashValue
+     * Get hash value
      *
      * @param key     key
-     * @param hashKey hashKey
+     * @param hashKey hash key
      * @return {@link String}
      */
-    public static String get(String key, Object hashKey) {
+    @Nullable
+    public static String get(@NotNull String key, @NotNull Object hashKey) {
         return OPERATIONS.get(key, JacksonUtil.toJson(hashKey));
     }
 
     /**
-     * 获取
-     * 获取 hashValue
-     *
-     * @param key     key
-     * @param hashKey hashKey
-     * @param tClass  目标类class
-     * @return {@link T}
-     */
-    public static <T> T get(String key, Object hashKey, Class<T> tClass) {
-        return JacksonUtil.parseJson(get(key, JacksonUtil.toJson(hashKey)), tClass);
-    }
-
-    /**
-     * 获取 hashValue
-     *
-     * @param key       key
-     * @param hashKey   hashKey
-     * @param reference reference
-     * @return {@link T}
-     */
-    public static <T> T get(String key, Object hashKey, TypeReference<T> reference) {
-        return JacksonUtil.parseJson(get(key, JacksonUtil.toJson(hashKey)), reference);
-    }
-
-    /**
-     * 获取多个 hashValue
+     * Get many hash value
      *
      * @param key      key
-     * @param hashKeys hashKey
+     * @param hashKeys hash key
      * @return {@link List}<{@link String}>
      */
-    public static List<String> multiGet(String key, Collection<Object> hashKeys) {
+    public static List<String> multiGet(@NotNull String key, @NotNull Collection<Object> hashKeys) {
         return OPERATIONS.multiGet(key, JacksonUtil.toJsons(hashKeys));
     }
 
     /**
-     * 获取多个 hashValue
-     *
-     * @param key      key
-     * @param hashKeys hashKey
-     * @param tClass   目标类class
-     * @return {@link List}<{@link T}>
-     */
-    public static <T> List<T> multiGet(String key, Collection<Object> hashKeys, Class<T> tClass) {
-        return JacksonUtil.parseJson(multiGet(key, hashKeys), tClass);
-    }
-
-    /**
-     * 获取多个 hashValue
-     *
-     * @param key       key
-     * @param hashKeys  hashKey
-     * @param reference reference
-     * @return {@link List}<{@link T}>
-     */
-    public static <T> List<T> multiGet(String key, Collection<Object> hashKeys, TypeReference<T> reference) {
-        return JacksonUtil.parseJson(multiGet(key, hashKeys), reference);
-    }
-
-    /**
-     * 获取全部key-value
+     * Get all key-value
      *
      * @param key key
      * @return {@link Map}<{@link String}, {@link String}>
      */
-    public static Map<String, String> entries(String key) {
+    public static Map<String, String> entries(@NotNull String key) {
         return OPERATIONS.entries(key);
     }
 
     /**
-     * 获取全部hashValue
+     * Get all hash value
      *
      * @param key key
      * @return {@link List}<{@link String}>
      */
-    public static List<String> values(String key) {
+    public static List<String> values(@NotNull String key) {
         return OPERATIONS.values(key);
     }
 
     /**
-     * 获取全部hashValue
-     *
-     * @param key    key
-     * @param tClass 目标类class
-     * @return {@link List}<{@link T}>
-     */
-    public static <T> List<T> values(String key, Class<T> tClass) {
-        return JacksonUtil.parseJson(values(key), tClass);
-    }
-
-    /**
-     * 获取全部hashValue
+     * Add hash value
      *
      * @param key       key
-     * @param reference reference
-     * @return {@link List}<{@link T}>
+     * @param hashKey   hash key
+     * @param hashValue hash value
      */
-    public static <T> List<T> values(String key, TypeReference<T> reference) {
-        return JacksonUtil.parseJson(values(key), reference);
-    }
-
-    /**
-     * 添加
-     *
-     * @param key       key
-     * @param hashKey   hashKey
-     * @param hashValue hashValue
-     */
-    public static void put(String key, Object hashKey, Object hashValue) {
+    public static void put(@NotNull String key, @NotNull Object hashKey, Object hashValue) {
         OPERATIONS.put(key, JacksonUtil.toJson(hashKey), JacksonUtil.toJson(hashValue));
     }
 
     /**
-     * 批量添加
+     * Batch add
      *
      * @param key key
      * @param map key-value
      */
-    public static void put(String key, Map<Object, Object> map) {
+    public static void put(@NotNull String key, @NotNull Map<Object, Object> map) {
         OPERATIONS.putAll(key, JacksonUtil.toJsons(map));
     }
 
     /**
-     * 如果不存在添加
+     * If hash key not exist then add
      *
      * @param key       key
-     * @param hashKey   hashKey
-     * @param hashValue hashValue
+     * @param hashKey   hash key
+     * @param hashValue hash value
      * @return boolean
      */
-    public static boolean putNx(String key, Object hashKey, Object hashValue) {
-        return Boolean.TRUE.equals(OPERATIONS.putIfAbsent(key, JacksonUtil.toJson(hashKey), JacksonUtil.toJson(hashValue)));
+    public static boolean putNx(@NotNull String key, @NotNull Object hashKey, Object hashValue) {
+        return OPERATIONS.putIfAbsent(key, JacksonUtil.toJson(hashKey), JacksonUtil.toJson(hashValue));
     }
 
     /**
-     * 指定hashKey的值自增1
+     * hash value increment
      *
      * @param key     key
-     * @param hashKey hashKey
-     * @return {@link Double} 增量后结果
+     * @param hashKey hash key
+     * @return {@link Double}
      */
-    public static Long increment(String key, Object hashKey) {
+    public static Long increment(@NotNull String key, @NotNull Object hashKey) {
         return increment(key, JacksonUtil.toJson(hashKey), 1);
     }
 
 
     /**
-     * 指定hashKey的值+指定值
+     * hash value increment
      *
      * @param key       key
-     * @param hashKey   hashKey
-     * @param increment 增量步长
-     * @return {@link Double} 增量后结果
+     * @param hashKey   hash key
+     * @param increment increment
+     * @return {@link Double}
      */
-    public static Long increment(String key, Object hashKey, long increment) {
+    public static Long increment(@NotNull String key, @NotNull Object hashKey, long increment) {
         return OPERATIONS.increment(key, JacksonUtil.toJson(hashKey), increment);
     }
 
 
     /**
-     * 指定hashKey的值+指定值
+     * hash value increment
      *
      * @param key       key
-     * @param hashKey   hashKey
-     * @param increment 增量步长
-     * @return {@link Double} 增量后结果
+     * @param hashKey   hash key
+     * @param increment increment
+     * @return {@link Double}
      */
-    public static Double increment(String key, Object hashKey, double increment) {
+    public static Double increment(@NotNull String key, @NotNull Object hashKey, double increment) {
         return OPERATIONS.increment(key, JacksonUtil.toJson(hashKey), increment);
     }
 
     /**
-     * 随机获取一个hashKey
+     * Random get a hash key
      *
      * @param key key
      * @return {@link String}
      */
-    public static String randomKey(String key) {
+    public static String randomKey(@NotNull String key) {
         return OPERATIONS.randomKey(key);
     }
 
-    /**
-     * 随机获取一个hashKey
-     *
-     * @param key    key
-     * @param tClass 目标类class
-     * @return {@link T}
-     */
-    public static <T> T randomKey(String key, Class<T> tClass) {
-        return JacksonUtil.parseJson(randomKey(key), tClass);
-    }
 
     /**
-     * 随机获取一个hashKey
-     *
-     * @param key       key
-     * @param reference reference
-     * @return {@link T}
-     */
-    public static <T> T randomKey(String key, TypeReference<T> reference) {
-        return JacksonUtil.parseJson(randomKey(key), reference);
-    }
-
-    /**
-     * 随机获取多个hashKey
+     * Random get much hash key
      *
      * @param key   key
-     * @param count 计数
+     * @param count count
      * @return {@link List}<{@link String}>
      */
-    public static List<String> randomKeys(String key, long count) {
+    public static List<String> randomKeys(@NotNull String key, long count) {
         return OPERATIONS.randomKeys(key, count);
     }
 
-
     /**
-     * 随机获取多个hashKey
-     *
-     * @param key    key
-     * @param tClass 目标类class
-     * @param count  计数
-     * @return {@link List}<{@link T}>
-     */
-    public static <T> List<T> randomKeys(String key, Class<T> tClass, long count) {
-        return JacksonUtil.parseJson(randomKeys(key, count), tClass);
-    }
-
-    /**
-     * 随机键
-     * 随机获取多个hashKey
-     *
-     * @param key       key
-     * @param reference reference
-     * @param count     计数
-     * @return {@link List}<{@link T}>
-     */
-    public static <T> List<T> randomKeys(String key, TypeReference<T> reference, long count) {
-        return JacksonUtil.parseJson(randomKeys(key, count), reference);
-    }
-
-    /**
-     * 随机获取一个key-value
+     * Random get a key-value
      *
      * @param key key
      * @return {@link Map.Entry}<{@link String}, {@link String}>
      */
-    public static Map.Entry<String, String> randomEntry(String key) {
+    public static Map.Entry<String, String> randomEntry(@NotNull String key) {
         return OPERATIONS.randomEntry(key);
     }
 
     /**
-     * 随机获取指定数量的key-value
+     * Random get much key-value
      *
      * @param key   key
-     * @param count 数量
+     * @param count count
      * @return {@link Map}<{@link String}, {@link String}>
      */
-    public static Map<String, String> randomEntries(String key, long count) {
+    public static Map<String, String> randomEntries(@NotNull String key, long count) {
         return OPERATIONS.randomEntries(key, count);
     }
 
     /**
-     * 删除
+     * Delete
      *
      * @param key      key
-     * @param hashKeys hashKey
+     * @param hashKeys hash key
      * @return {@link Long}
      */
-    public static Long delete(String key, Object... hashKeys) {
+    public static Long delete(@NotNull String key, Object... hashKeys) {
         return OPERATIONS.delete(key, (Object[]) JacksonUtil.toJson(hashKeys));
     }
 

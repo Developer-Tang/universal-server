@@ -1,7 +1,8 @@
 package cn.tangshh.universal.core.util;
 
 
-import com.fasterxml.jackson.core.type.TypeReference;
+import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.redis.core.ListOperations;
 
 import java.time.Duration;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Redis List类型 工具类
+ * Redis List Util
  *
  * @author Tang
  * @version v1.0
@@ -26,561 +27,334 @@ public final class RedisListUtil extends RedisUtil {
     }
 
     /**
-     * 查询集合大小
+     * query value size
      *
      * @param key key
      * @return {@link Long}
      */
-    public static Long size(String key) {
-        return OPERATIONS.size(key);
+    public static long size(@NotNull String key) {
+        Long size = OPERATIONS.size(key);
+        return size == null ? 0 : size;
     }
 
     /**
-     * 索引查询
+     * query value by index
      *
      * @param key   key
      * @param index 索引
      * @return {@link String}
      */
-    public static String index(String key, long index) {
+    @Nullable
+    public static String index(@NotNull String key, long index) {
         return OPERATIONS.index(key, index);
     }
 
     /**
-     * 索引查询
-     *
-     * @param key    key
-     * @param index  索引
-     * @param tClass 目标类class
-     * @return {@link T}
-     */
-    public static <T> T index(String key, long index, Class<T> tClass) {
-        return JacksonUtil.parseJson(index(key, index), tClass);
-    }
-
-    /**
-     * 索引查询
-     *
-     * @param key       key
-     * @param index     索引
-     * @param reference reference
-     * @return {@link T}
-     */
-    public static <T> T index(String key, long index, TypeReference<T> reference) {
-        return JacksonUtil.parseJson(index(key, index), reference);
-    }
-
-    /**
-     * 查询第一次出现的索引位置
+     * query value first index
      *
      * @param key   key
-     * @param value 值
+     * @param value value
      * @return {@link Long}
      */
-    public static <T> Long indexOf(String key, T value) {
+    public static Long indexOf(@NotNull String key, @NotNull Object value) {
         return OPERATIONS.indexOf(key, JacksonUtil.toJson(value));
     }
 
     /**
-     * 查询最后一次出现的索引位置
+     * query value last index
      *
      * @param key   key
-     * @param value 值
+     * @param value value
      * @return {@link Long}
      */
-    public static <T> Long lastIndexOf(String key, T value) {
+    @Nullable
+    public static Long lastIndexOf(@NotNull String key, @NotNull Object value) {
         return OPERATIONS.lastIndexOf(key, JacksonUtil.toJson(value));
     }
 
     /**
-     * 范围查询
+     * query all value
      *
      * @param key key
      * @return {@link List}<{@link String}>
      */
-    public static List<String> range(String key) {
+    public static List<String> rangeAll(@NotNull String key) {
         return range(key, 0, -1);
     }
 
     /**
-     * 范围查询
-     *
-     * @param key    key
-     * @param tClass 目标类class
-     * @return {@link List}<{@link T}>
-     */
-    public static <T> List<T> range(String key, Class<T> tClass) {
-        return JacksonUtil.parseJson(range(key), tClass);
-    }
-
-    /**
-     * 范围查询
-     *
-     * @param key       key
-     * @param reference reference
-     * @return {@link List}<{@link T}>
-     */
-    public static <T> List<T> range(String key, TypeReference<T> reference) {
-        return JacksonUtil.parseJson(range(key), reference);
-    }
-
-    /**
-     * 范围查询
+     * query in range value
      *
      * @param key   key
-     * @param start 开始
-     * @param end   结束
+     * @param start start index
+     * @param end   end index
      * @return {@link List}<{@link String}>
      */
-    public static List<String> range(String key, long start, long end) {
+    @Nullable
+    public static List<String> range(@NotNull String key, long start, long end) {
         return OPERATIONS.range(key, start, end);
     }
 
-    /**
-     * 范围查询
-     *
-     * @param key    key
-     * @param tClass 目标类class
-     * @param start  开始
-     * @param end    结束
-     * @return {@link List}<{@link T}>
-     */
-    public static <T> List<T> range(String key, Class<T> tClass, long start, long end) {
-        return JacksonUtil.parseJson(range(key, start, end), tClass);
-    }
-
-    /**
-     * 范围查询
-     *
-     * @param key       key
-     * @param reference reference
-     * @param start     开始
-     * @param end       结束
-     * @return {@link List}<{@link T}>
-     */
-    public static <T> List<T> range(String key, TypeReference<T> reference, long start, long end) {
-        return JacksonUtil.parseJson(range(key, start, end), reference);
-    }
-
 
     /**
      * @param key   key
-     * @param start 开始
-     * @param end   结束
+     * @param start start index
+     * @param end   end index
      */
-    public static void trim(String key, long start, long end) {
+    public static void trim(@NotNull String key, long start, long end) {
         OPERATIONS.trim(key, start, end);
     }
 
     /**
-     * 移除值
+     * Remove a value
      *
      * @param key   key
-     * @param value 值
+     * @param value value
      * @return {@link Long}
      */
-    public static Long remove(String key, Object value) {
+    public static Long remove(@NotNull String key, Object value) {
         return remove(key, JacksonUtil.toJson(value), 1);
     }
 
     /**
-     * 移除值
+     * Remove many value
      *
      * @param key   key
-     * @param value 值
+     * @param value value
      * @param count 计数
      * @return {@link Long}
      */
-    public static Long remove(String key, Object value, long count) {
+    @Nullable
+    public static Long remove(@NotNull String key, Object value, long count) {
         return OPERATIONS.remove(key, count, JacksonUtil.toJson(value));
     }
 
 
     /**
-     * 添加值到指定位置
+     * Add value to index
      *
      * @param key   key
-     * @param value 值
+     * @param value value
      * @param index 索引
      */
-    public static void set(String key, long index, Object value) {
+    public static void set(@NotNull String key, long index, Object value) {
         OPERATIONS.set(key, index, JacksonUtil.toJson(value));
     }
 
     /**
-     * 左侧添加值
+     * Left push  value
      *
      * @param key   key
-     * @param value 值
+     * @param value value
      * @return {@link Long}
      */
-    public static Long lPush(String key, Object value) {
+    @Nullable
+    public static Long lPush(@NotNull String key, Object value) {
         return OPERATIONS.leftPush(key, JacksonUtil.toJson(value));
     }
 
     /**
-     * 左侧添加值
+     * Left push value
      *
      * @param key    key
-     * @param values 值
+     * @param values value
      * @return {@link Long}
      */
-    public static Long lPush(String key, Object... values) {
+    @Nullable
+    public static Long lPush(@NotNull String key, @NotNull Object... values) {
         return OPERATIONS.leftPushAll(key, JacksonUtil.toJson(values));
     }
 
     /**
-     * 左侧添加值
+     * Left push value
      *
      * @param key    key
-     * @param values 值
+     * @param values value
      * @return {@link Long}
      */
-    public static Long lPush(String key, Collection<Object> values) {
+    @Nullable
+    public static Long lPush(@NotNull String key, @NotNull Collection<Object> values) {
         return OPERATIONS.leftPushAll(key, JacksonUtil.toJsons(values));
     }
 
     /**
-     * 当key存在时左侧添加值
+     * If exist key then left push value
      *
      * @param key   key
-     * @param value 值
+     * @param value value
      * @return {@link Long}
      */
-    public static Long lPushNx(String key, Object value) {
+    @Nullable
+    public static Long lPushNx(@NotNull String key, Object value) {
         return OPERATIONS.leftPushIfPresent(key, JacksonUtil.toJson(value));
     }
 
     /**
-     * 左侧弹出一个值
+     * Left pop a value
      *
      * @param key key
      * @return {@link String}
      */
-    public static String lPop(String key) {
+    @Nullable
+    public static String lPop(@NotNull String key) {
         return OPERATIONS.leftPop(key);
     }
 
     /**
-     * 左侧弹出一个值
+     * Left pop a value
      *
      * @param key     key
-     * @param maxWait 最大等待
-     * @param unit    单位
+     * @param maxWait max wait time
+     * @param unit    time unit
      * @return {@link String}
      */
-    public static String lPop(String key, long maxWait, TimeUnit unit) {
+    @Nullable
+    public static String lPop(@NotNull String key, long maxWait, @NotNull TimeUnit unit) {
         return OPERATIONS.leftPop(key, maxWait, unit);
     }
 
     /**
-     * 左侧弹出一个值
+     * Left pop a value
      *
      * @param key      key
-     * @param duration 持续时间
+     * @param duration time
      * @return {@link String}
      */
-    public static String lPop(String key, Duration duration) {
+    @Nullable
+    public static String lPop(@NotNull String key, @NotNull Duration duration) {
         return OPERATIONS.leftPop(key, duration);
     }
 
-    /**
-     * 左侧弹出一个值
-     *
-     * @param key    key
-     * @param tClass 目标类class
-     * @return {@link String}
-     */
-    public static <T> T lPop(String key, Class<T> tClass) {
-        return JacksonUtil.parseJson(lPop(key), tClass);
-    }
 
     /**
-     * 左侧弹出一个值
-     *
-     * @param key     key
-     * @param tClass  目标类class
-     * @param maxWait 最大等待
-     * @param unit    单位
-     * @return {@link T}
-     */
-    public static <T> T lPop(String key, Class<T> tClass, long maxWait, TimeUnit unit) {
-        return JacksonUtil.parseJson(lPop(key, maxWait, unit), tClass);
-    }
-
-    /**
-     * 左侧弹出一个值
-     *
-     * @param key    key
-     * @param tClass 目标类class
-     * @return {@link String}
-     */
-    public static <T> T lPop(String key, Class<T> tClass, Duration duration) {
-        return JacksonUtil.parseJson(lPop(key, duration), tClass);
-    }
-
-    /**
-     * 左侧弹出一个值
-     *
-     * @param key       key
-     * @param reference reference
-     * @return {@link T}
-     */
-    public static <T> T lPop(String key, TypeReference<T> reference) {
-        return JacksonUtil.parseJson(lPop(key), reference);
-    }
-
-    /**
-     * 左侧弹出一个值
-     *
-     * @param key       key
-     * @param reference reference
-     * @param maxWait   最大等待
-     * @param unit      单位
-     * @return {@link T}
-     */
-    public static <T> T lPop(String key, TypeReference<T> reference, long maxWait, TimeUnit unit) {
-        return JacksonUtil.parseJson(lPop(key, maxWait, unit), reference);
-    }
-
-    /**
-     * 左侧弹出一个值
-     *
-     * @param key       key
-     * @param reference reference
-     * @param duration  持续时间
-     * @return {@link T}
-     */
-    public static <T> T lPop(String key, TypeReference<T> reference, Duration duration) {
-        return JacksonUtil.parseJson(lPop(key, duration), reference);
-    }
-
-    /**
-     * 左侧弹出多个值
+     * Left pop many value
      *
      * @param key   key
      * @param count 计数
      * @return {@link List}<{@link String}>
      */
-    public static List<String> lPop(String key, long count) {
+    public static List<String> lPop(@NotNull String key, long count) {
         return OPERATIONS.leftPop(key, count);
     }
 
     /**
-     * 左侧弹出多个值
-     *
-     * @param key    key
-     * @param count  计数
-     * @param tClass 目标类class
-     * @return {@link List}<{@link T}>
-     */
-    public static <T> List<T> lPop(String key, long count, Class<T> tClass) {
-        return JacksonUtil.parseJson(lPop(key, count), tClass);
-    }
-
-    /**
-     * 左侧弹出多个值
-     *
-     * @param key       key
-     * @param count     计数
-     * @param reference reference
-     * @return {@link List}<{@link T}>
-     */
-    public static <T> List<T> lPop(String key, long count, TypeReference<T> reference) {
-        return JacksonUtil.parseJson(lPop(key, count), reference);
-    }
-
-    /**
-     * 右侧添加值
+     * Right push value
      *
      * @param key   key
-     * @param value 值
+     * @param value value
      * @return {@link Long}
      */
-    public static Long rPush(String key, Object value) {
+    @Nullable
+    public static Long rPush(@NotNull String key, Object value) {
         return OPERATIONS.rightPush(key, JacksonUtil.toJson(value));
     }
 
     /**
-     * 右侧添加值
+     * Right push value
      *
      * @param key    key
-     * @param values 值
+     * @param values value
      * @return {@link Long}
      */
-    public static Long rPush(String key, Collection<Object> values) {
-        if (values != null) {
-            return OPERATIONS.rightPushAll(key, JacksonUtil.toJsons(values));
-        }
-        return null;
+    @Nullable
+    public static Long rPush(@NotNull String key, @NotNull Collection<Object> values) {
+        return OPERATIONS.rightPushAll(key, JacksonUtil.toJsons(values));
     }
 
     /**
-     * 右侧添加值
+     * If key exist then right push value
      *
      * @param key   key
-     * @param value 值
+     * @param value value
      * @return {@link Long}
      */
-    public static Long rPushNx(String key, Object value) {
+    @Nullable
+    public static Long rPushNx(@NotNull String key, Object value) {
         return OPERATIONS.rightPushIfPresent(key, JacksonUtil.toJson(value));
     }
 
     /**
-     * 右侧弹出一个值
+     * Right pop a value
      *
      * @param key key
      * @return {@link String}
      */
-    public static String rPop(String key) {
+    @Nullable
+    public static String rPop(@NotNull String key) {
         return OPERATIONS.rightPop(key);
     }
 
     /**
-     * 右侧弹出一个值
+     * Right pop a value
      *
      * @param key     key
-     * @param maxWait 最大等待
-     * @param unit    单位
+     * @param maxWait max wait time
+     * @param unit    time unit
      * @return {@link String}
      */
-    public static String rPop(String key, long maxWait, TimeUnit unit) {
+    public static String rPop(@NotNull String key, long maxWait, @NotNull TimeUnit unit) {
         return OPERATIONS.rightPop(key, maxWait, unit);
     }
 
     /**
-     * 右侧弹出一个值
+     * Right pop a value
      *
      * @param key      key
-     * @param duration 持续时间
+     * @param duration time
      * @return {@link String}
      */
-    public static String rPop(String key, Duration duration) {
+    @Nullable
+    public static String rPop(@NotNull String key, @NotNull Duration duration) {
         return OPERATIONS.rightPop(key, duration);
     }
 
     /**
-     * 右侧弹出一个值
-     *
-     * @param key    key
-     * @param tClass 目标类class
-     * @return {@link T}
-     */
-    public static <T> T rPop(String key, Class<T> tClass) {
-        return JacksonUtil.parseJson(rPop(key), tClass);
-    }
-
-    /**
-     * 右侧弹出一个值
-     *
-     * @param key     key
-     * @param tClass  目标类class
-     * @param maxWait 最大等待
-     * @param unit    单位
-     * @return {@link T}
-     */
-    public static <T> T rPop(String key, Class<T> tClass, long maxWait, TimeUnit unit) {
-        return JacksonUtil.parseJson(rPop(key, maxWait, unit), tClass);
-    }
-
-    /**
-     * 右侧弹出一个值
-     *
-     * @param key      key
-     * @param duration 持续时间
-     * @param tClass   目标类class
-     * @return {@link T}
-     */
-    public static <T> T rPop(String key, Class<T> tClass, Duration duration) {
-        return JacksonUtil.parseJson(rPop(key, duration), tClass);
-    }
-
-    /**
-     * 右侧弹出一个值
-     *
-     * @param key       key
-     * @param reference reference
-     * @return {@link String}
-     */
-    public static <T> T rPop(String key, TypeReference<T> reference) {
-        return JacksonUtil.parseJson(rPop(key), reference);
-    }
-
-    /**
-     * 右侧弹出一个值
-     *
-     * @param key       key
-     * @param reference reference
-     * @param maxWait   最大等待
-     * @param unit      单位
-     * @return {@link T}
-     */
-    public static <T> T rPop(String key, TypeReference<T> reference, long maxWait, TimeUnit unit) {
-        return JacksonUtil.parseJson(rPop(key, maxWait, unit), reference);
-    }
-
-    /**
-     * 右侧弹出一个值
-     *
-     * @param key       key
-     * @param reference reference
-     * @param duration  持续时间
-     * @return {@link T}
-     */
-    public static <T> T rPop(String key, TypeReference<T> reference, Duration duration) {
-        return JacksonUtil.parseJson(rPop(key, duration), reference);
-    }
-
-    /**
-     * 右侧弹出多个值
+     * Right pop many value
      *
      * @param key   key
      * @param count 计数
      * @return {@link List}<{@link String}>
      */
-    public static List<String> rPop(String key, long count) {
+    @Nullable
+    public static List<String> rPop(@NotNull String key, long count) {
         return OPERATIONS.rightPop(key, count);
     }
 
     /**
-     * 右侧弹出左侧添加（队列）
+     * Right pop value and left push value
      *
      * @param key   key
-     * @param value 值
+     * @param value value
      * @return {@link String}
      */
-    @SuppressWarnings("unchecked")
-    public static <T> T rPopLeftPush(String key, T value) {
-        String popValue = OPERATIONS.rightPopAndLeftPush(key, JacksonUtil.toJson(value));
-        return JacksonUtil.parseJson(popValue, (Class<T>) value.getClass());
+    @Nullable
+    public static String rPopLeftPush(@NotNull String key, @NotNull Object value) {
+        return OPERATIONS.rightPopAndLeftPush(key, JacksonUtil.toJson(value));
     }
 
     /**
-     * 右侧弹出左侧添加（队列）
+     * Right pop value and left push value
      *
      * @param key     key
-     * @param value   值
-     * @param maxWait 最大等待时间
-     * @param unit    单位
-     * @return {@link T}
+     * @param value   value
+     * @param maxWait max wait time
+     * @param unit    time unit
      */
-    @SuppressWarnings("unchecked")
-    public static <T> T rPopLeftPush(String key, T value, long maxWait, TimeUnit unit) {
-        String popValue = OPERATIONS.rightPopAndLeftPush(key, JacksonUtil.toJson(value), maxWait, unit);
-        return JacksonUtil.parseJson(popValue, (Class<T>) value.getClass());
+    @Nullable
+    public static String rPopLeftPush(@NotNull String key, @NotNull Object value, long maxWait, @NotNull TimeUnit unit) {
+        return OPERATIONS.rightPopAndLeftPush(key, JacksonUtil.toJson(value), maxWait, unit);
     }
 
     /**
-     * 右侧弹出左侧添加（队列）
+     * Right pop value and left push value
      *
      * @param key      key
-     * @param value    值
-     * @param duration 持续时间
-     * @return {@link T}
+     * @param value    value
+     * @param duration time
+     * @return {@link String}
      */
-    @SuppressWarnings("unchecked")
-    public static <T> T rPopLeftPush(String key, T value, Duration duration) {
-        String popValue = OPERATIONS.rightPopAndLeftPush(key, JacksonUtil.toJson(value), duration);
-        return JacksonUtil.parseJson(popValue, (Class<T>) value.getClass());
+    @Nullable
+    public static String rPopLeftPush(@NotNull String key, Object value, @NotNull Duration duration) {
+        return OPERATIONS.rightPopAndLeftPush(key, JacksonUtil.toJson(value), duration);
     }
 }
