@@ -1,0 +1,11 @@
+springdoc:
+  swagger-ui:
+    use-root-path: true # 根路径跳转接口文档
+  group-configs:
+    - group: default
+      paths-to-match:
+        - /**
+
+logging:
+  pattern:
+    dateformat: yyyy-MM-dd HH:mm:ss.SSS

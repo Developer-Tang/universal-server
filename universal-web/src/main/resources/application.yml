@@ -1,0 +1,8 @@
+springdoc:
+  api-docs:
+    enabled: true # Enable docs
+  swagger-ui:
+    enabled: true # Enable docs ui
+  author: Tang # 作者
+  title: ${spring.application.name}API Development Docs
+  version: 1.0
