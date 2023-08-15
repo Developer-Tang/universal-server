@@ -1,17 +1,18 @@
 package cn.tangshh.universal.core.util;
 
 import cn.hutool.core.util.StrUtil;
+import jakarta.annotation.Nullable;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.Map;
 
 /**
- * 请求工具类
+ * Request Util
  *
  * @author Tang
  * @version v1.0
@@ -22,10 +23,11 @@ public final class RequestUtil {
     }
 
     /**
-     * 获取请求对象
+     * Get current thread request bean
      *
-     * @return {@link HttpServletRequest} 请求对象
+     * @return {@link HttpServletRequest}
      */
+    @Nullable
     public static HttpServletRequest getRequest() {
         RequestAttributes attributes = RequestContextHolder.getRequestAttributes();
         if (attributes != null) {
@@ -35,7 +37,7 @@ public final class RequestUtil {
     }
 
     /**
-     * 获取请求ip
+     * Get request origin ip
      *
      * @return {@link String} ip
      */
@@ -44,12 +46,12 @@ public final class RequestUtil {
     }
 
     /**
-     * 获取请求ip
+     * Get request origin ip
      *
-     * @param request 请求对象
+     * @param request request
      * @return {@link String} ip
      */
-    public static String getRequestIp(HttpServletRequest request) {
+    public static String getRequestIp(@Nullable HttpServletRequest request) {
         if (request == null) {
             return "unknown";
         }
@@ -73,7 +75,7 @@ public final class RequestUtil {
     }
 
     /**
-     * 获取请求路径
+     * Get request uri
      *
      * @return {@link String} 请求路径
      */
@@ -86,14 +88,14 @@ public final class RequestUtil {
     }
 
     /**
-     * 获取请求参数
+     * Get request param in uri path
      *
-     * @return {@link Map}<{@link String}, {@link String[]}> 参数
+     * @return {@link Map}<{@link String}, {@link String[]}>
      */
     public static Map<String, String[]> getRequestParam() {
         HttpServletRequest request = getRequest();
         if (request == null) {
-            return new HashMap<>();
+            return Collections.emptyMap();
         }
         return request.getParameterMap();
     }

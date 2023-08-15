@@ -24,21 +24,6 @@ public final class SpringUtil implements ApplicationContextAware, DisposableBean
     private static ApplicationContext applicationContext = null;
     private static Environment env = null;
 
-    @Override
-    public void setApplicationContext(@Nullable ApplicationContext context) {
-        SpringUtil.applicationContext = context;
-    }
-
-    public void setEnv(Environment env) {
-        SpringUtil.env = env;
-    }
-
-    @Override
-    public void destroy() {
-        applicationContext = null;
-    }
-
-
     /**
      * Get bean
      *
@@ -105,6 +90,20 @@ public final class SpringUtil implements ApplicationContextAware, DisposableBean
      */
     public static boolean matchesProfiles(@NotNull String... expressions) {
         return env.matchesProfiles(expressions);
+    }
+
+    @Override
+    public void setApplicationContext(@Nullable ApplicationContext context) {
+        SpringUtil.applicationContext = context;
+    }
+
+    public void setEnv(Environment env) {
+        SpringUtil.env = env;
+    }
+
+    @Override
+    public void destroy() {
+        applicationContext = null;
     }
 
 
