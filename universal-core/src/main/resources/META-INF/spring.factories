@@ -1,3 +1,0 @@
-# Auto Configure
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-cn.tangshh.universal.core.UniversalCoreAutoConfig
