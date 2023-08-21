@@ -1,5 +1,8 @@
 package cn.tangshh.universal.core.util;
 
+import cn.hutool.extra.spring.SpringUtil;
+import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.connection.DataType;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -10,7 +13,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Redis 通用操作 工具类
+ * Redis Common Util
  *
  * @author Tang
  * @version v1.0
@@ -27,100 +30,102 @@ public class RedisUtil {
     }
 
     /**
-     * 查询是否存在
+     * Query key is exist
      *
      * @param key key
      * @return boolean
      */
-    public static boolean exists(String key) {
+    public static boolean exists(@NotNull String key) {
         return Boolean.TRUE.equals(TEMPLATE.hasKey(key));
     }
 
     /**
-     * 删除
+     * Delete key
      *
      * @param key key
      * @return boolean
      */
-    public static boolean del(String key) {
+    public static boolean del(@NotNull String key) {
         return Boolean.TRUE.equals(TEMPLATE.delete(key));
     }
 
     /**
-     * 删除
+     * Delete key
      *
      * @param keys keys
-     * @return long 删除个数
+     * @return long
      */
-    public static long del(Collection<String> keys) {
+    public static long del(@NotNull Collection<String> keys) {
         Long delNum = TEMPLATE.delete(keys);
         return delNum == null ? 0 : delNum;
     }
 
     /**
-     * 设置过期时间
+     * Set key valid time
      *
      * @param key    key
-     * @param expire 过期时间
-     * @param unit   单位
+     * @param expire valid time
+     * @param unit   unit
      * @return boolean
      */
-    public static boolean expire(String key, long expire, TimeUnit unit) {
-        if (expire > 0) {
+    public static boolean expire(@NotNull String key, long expire, @NotNull TimeUnit unit) {
+        if (expire > -1) {
             return Boolean.TRUE.equals(TEMPLATE.expire(key, expire, unit));
         }
         return false;
     }
 
     /**
-     * 设置过期时间
+     * Set key valid time
      *
      * @param key    key
-     * @param expire 过期时间
+     * @param expire valid time
      * @return boolean
      */
-    public static boolean expire(String key, long expire) {
+    public static boolean expire(@NotNull String key, long expire) {
         return expire(key, expire, TimeUnit.SECONDS);
     }
 
     /**
-     * 设置过期时间
+     * Set key valid time
      *
      * @param key  key
-     * @param date 过期时间
+     * @param date valid time
      * @return boolean
      */
-    public static boolean expire(String key, Date date) {
+    public static boolean expire(@NotNull String key, @NotNull Date date) {
         return Boolean.TRUE.equals(TEMPLATE.expireAt(key, date));
     }
 
     /**
-     * 重命名key
+     * Rename key
      *
      * @param oldKey 旧key
      * @param newKey 新key
      */
-    public static void rename(String oldKey, String newKey) {
+    public static void rename(@NotNull String oldKey, @NotNull String newKey) {
         TEMPLATE.rename(oldKey, newKey);
     }
 
     /**
-     * 通过表达式搜索key
+     * Scan key by expression
      *
-     * @param keyExpr key表达式
-     * @return {@link Set}<{@link String}> 符合要求key的集合
+     * @param keyExpr key expression
+     * @return {@link Set}<{@link String}>
      */
-    public static Set<String> keys(String keyExpr) {
+    @Nullable
+    public static Set<String> keys(@NotNull String keyExpr) {
         return TEMPLATE.keys(keyExpr);
     }
 
     /**
-     * 查询key的有效期
+     * Query key valid time
      *
      * @param key key
      * @return {@link Long}
      */
-    public static Long ttl(String key) {
+    @Nullable
+    public static Long ttl(@NotNull String key) {
         return ttl(key, TimeUnit.SECONDS);
     }
 
@@ -131,7 +136,8 @@ public class RedisUtil {
      * @param unit 单位
      * @return {@link Long}
      */
-    public static Long ttl(String key, TimeUnit unit) {
+    @Nullable
+    public static Long ttl(@NotNull String key, @NotNull TimeUnit unit) {
         return TEMPLATE.getExpire(key, unit);
     }
 
@@ -141,7 +147,8 @@ public class RedisUtil {
      * @param key key
      * @return {@link DataType}
      */
-    public static DataType type(String key) {
+    @Nullable
+    public static DataType type(@NotNull String key) {
         return TEMPLATE.type(key);
     }
 }

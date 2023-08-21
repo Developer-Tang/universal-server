@@ -1,7 +1,8 @@
 package cn.tangshh.universal.core.util;
 
 
-import com.fasterxml.jackson.core.type.TypeReference;
+import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Range;
 import org.springframework.data.redis.core.ZSetOperations;
 
@@ -10,7 +11,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Redis ZSet类型 工具类
+ * Redis ZSet Util
  *
  * @author Tang
  * @version v1.0
@@ -26,150 +27,133 @@ public final class RedisZSetUtil extends RedisUtil {
     }
 
     /**
-     * 查询集合大小
+     * Query set size
      *
      * @param key key
      * @return {@link Long}
      */
-    public static Long size(String key) {
+    @Nullable
+    public static Long size(@NotNull String key) {
         return OPERATIONS.size(key);
     }
 
     /**
-     * 获取排序集合大小
+     * Query set size
      *
      * @param key key
      * @return {@link Long}
      */
-    public static Long zCard(String key) {
+    @Nullable
+    public static Long zCard(@NotNull String key) {
         return OPERATIONS.zCard(key);
     }
 
     /**
-     * 移除value
+     * Remove values
      *
      * @param key    key
      * @param values value
      * @return {@link Long}
      */
-    public static Long remove(String key, Object... values) {
+    @Nullable
+    public static Long remove(@NotNull String key, @NotNull Object... values) {
         return OPERATIONS.remove(key, (Object[]) JacksonUtil.toJson(values));
     }
 
     /**
-     * 范围统计
+     * Range statistics
      *
      * @param key      key
-     * @param minScore 最小分数
-     * @param maxScore 最大分数
+     * @param minScore min score
+     * @param maxScore max score
      * @return {@link Long}
      */
-    public static Long count(String key, double minScore, double maxScore) {
+    @Nullable
+    public static Long count(@NotNull String key, double minScore, double maxScore) {
         return OPERATIONS.count(key, minScore, maxScore);
     }
 
     /**
-     * 范围统计
+     * Range statistics
      *
      * @param key   key
-     * @param range 范围
+     * @param range range
      * @return {@link Long}
      */
-    public static Long lexCount(String key, Range<String> range) {
+    @Nullable
+    public static Long lexCount(@NotNull String key, @NotNull Range<String> range) {
         return OPERATIONS.lexCount(key, range);
     }
 
     /**
-     * 范围查询
+     * Range query
      *
      * @param key   key
-     * @param start 开始
-     * @param end   结束
+     * @param start start index
+     * @param end   end index
      * @return {@link Set}<{@link String}>
      */
-    public static Set<String> range(String key, long start, long end) {
+    @Nullable
+    public static Set<String> range(@NotNull String key, long start, long end) {
         return OPERATIONS.range(key, start, end);
     }
 
     /**
-     * 范围查询
-     *
-     * @param key    key
-     * @param start  开始
-     * @param end    结束
-     * @param tClass target type class
-     * @return {@link Set}<{@link T}>
-     */
-    public static <T> Set<T> range(String key, Class<T> tClass, long start, long end) {
-        return JacksonUtil.parseJson(OPERATIONS.range(key, start, end), tClass);
-    }
-
-    /**
-     * 范围查询
-     *
-     * @param key       key
-     * @param start     开始
-     * @param end       结束
-     * @param reference reference
-     * @return {@link Set}<{@link T}>
-     */
-    public static <T> Set<T> range(String key, TypeReference<T> reference, long start, long end) {
-        return JacksonUtil.parseJson(OPERATIONS.range(key, start, end), reference);
-    }
-
-    /**
-     * 排名
+     * Get ranking
      *
      * @param key   key
      * @param value value
      * @return {@link Long}
      */
-    public static Long rank(String key, Object value) {
+    @Nullable
+    public static Long rank(@NotNull String key, Object value) {
         return OPERATIONS.rank(key, JacksonUtil.toJson(value));
     }
 
     /**
-     * 反向排名
+     * Gte reverse ranking
      *
      * @param key   key
      * @param value value
      * @return {@link Long}
      */
-    public static Long reverseRank(String key, Object value) {
+    @Nullable
+    public static Long reverseRank(@NotNull String key, Object value) {
         return OPERATIONS.reverseRank(key, JacksonUtil.toJson(value));
     }
 
     /**
-     * 添加value
+     * Add value
      *
      * @param key   key
      * @param value value
      * @return boolean
      */
-    public static boolean add(String key, Object value) {
+    public static boolean add(@NotNull String key, Object value) {
         return add(key, value, 0);
     }
 
     /**
-     * 添加value并设置分数
+     * Add value and set scope
      *
      * @param key   key
      * @param value value
      * @return boolean
      */
-    public static boolean add(String key, Object value, double score) {
+    public static boolean add(@NotNull String key, Object value, double score) {
         return Boolean.TRUE.equals(OPERATIONS.add(key, JacksonUtil.toJson(value), score));
     }
 
     /**
-     * 批量添加value并设置分数
+     * Batch add value and set scope
      *
      * @param key    key
      * @param values value
      * @return {@link Long}
      */
+    @Nullable
     @SafeVarargs
-    public static Long add(String key, ZSetOperations.TypedTuple<Object>... values) {
+    public static Long add(@NotNull String key, @NotNull ZSetOperations.TypedTuple<Object>... values) {
         Set<ZSetOperations.TypedTuple<String>> set = new HashSet<>(values.length);
         for (ZSetOperations.TypedTuple<Object> tuple : values) {
             set.add(ZSetOperations.TypedTuple.of(JacksonUtil.toJson(tuple.getValue()), tuple.getScore()));
@@ -178,13 +162,14 @@ public final class RedisZSetUtil extends RedisUtil {
     }
 
     /**
-     * 批量添加value并设置分数
+     * Batch add value and set scope
      *
      * @param key    key
      * @param values value
      * @return {@link Long}
      */
-    public static Long add(String key, Set<ZSetOperations.TypedTuple<Object>> values) {
+    @Nullable
+    public static Long add(@NotNull String key, @NotNull Set<ZSetOperations.TypedTuple<Object>> values) {
         Set<ZSetOperations.TypedTuple<String>> set = values.parallelStream()
                 .map(e -> ZSetOperations.TypedTuple.of(JacksonUtil.toJson(e.getValue()), e.getScore()))
                 .collect(Collectors.toSet());
@@ -193,36 +178,37 @@ public final class RedisZSetUtil extends RedisUtil {
 
 
     /**
-     * 如果value不存在添加value
+     * Add value if not exist
      *
      * @param key   key
      * @param value value
      * @return boolean
      */
-    public static boolean addNx(String key, Object value) {
+    public static boolean addNx(@NotNull String key, Object value) {
         return addNx(key, value, 0);
     }
 
     /**
-     * 如果value不存在添加value并设置分数
+     * Add value and scope if not exist
      *
      * @param key   key
      * @param value value
      * @return boolean
      */
-    public static boolean addNx(String key, Object value, double score) {
+    public static boolean addNx(@NotNull String key, Object value, double score) {
         return Boolean.TRUE.equals(OPERATIONS.addIfAbsent(key, JacksonUtil.toJson(value), score));
     }
 
     /**
-     * 批量如果value不存在添加value并设置分数
+     * Batch add value and scope if not exist
      *
      * @param key    key
      * @param values value
      * @return {@link Long}
      */
+    @Nullable
     @SafeVarargs
-    public static Long addNx(String key, ZSetOperations.TypedTuple<Object>... values) {
+    public static Long addNx(@NotNull String key, @NotNull ZSetOperations.TypedTuple<Object>... values) {
         Set<ZSetOperations.TypedTuple<String>> set = new HashSet<>(values.length);
         for (ZSetOperations.TypedTuple<Object> tuple : values) {
             set.add(ZSetOperations.TypedTuple.of(JacksonUtil.toJson(tuple.getValue()), tuple.getScore()));
@@ -231,13 +217,14 @@ public final class RedisZSetUtil extends RedisUtil {
     }
 
     /**
-     * 批量如果value不存在添加value并设置分数
+     * Batch add value and scope if not exist
      *
      * @param key    key
      * @param values value
      * @return {@link Long}
      */
-    public static Long addNx(String key, Set<ZSetOperations.TypedTuple<Object>> values) {
+    @Nullable
+    public static Long addNx(@NotNull String key, @NotNull Set<ZSetOperations.TypedTuple<Object>> values) {
         Set<ZSetOperations.TypedTuple<String>> set = values.parallelStream()
                 .map(e -> ZSetOperations.TypedTuple.of(JacksonUtil.toJson(e.getValue()), e.getScore()))
                 .collect(Collectors.toSet());

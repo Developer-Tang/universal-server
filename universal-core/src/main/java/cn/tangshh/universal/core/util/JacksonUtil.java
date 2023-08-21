@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.*;
@@ -60,7 +61,7 @@ public final class JacksonUtil {
      * @param values value
      * @return {@link List}<{@link String}>
      */
-    public static Collection<String> toJsons(@NotNull Collection<?> values) {
+    public static Collection<String> toJsons(@NotNull Collection<Object> values) {
         return values.parallelStream()
                 .map(JacksonUtil::toJson)
                 .collect(Collectors.toList());
@@ -85,7 +86,11 @@ public final class JacksonUtil {
      * @param tClass target type class
      * @return {@link T}
      */
-    public static <T> T parseJson(@NotNull String value, Class<T> tClass) {
+    @Nullable
+    public static <T> T parseJson(String value, Class<T> tClass) {
+        if (value == null) {
+            return null;
+        }
         try {
             return MAPPER.readValue(value, tClass);
         } catch (JsonProcessingException e) {
@@ -100,7 +105,11 @@ public final class JacksonUtil {
      * @param reference reference
      * @return {@link T}
      */
+    @Nullable
     public static <T> T parseJson(@NotNull String value, TypeReference<T> reference) {
+        if (value == null) {
+            return null;
+        }
         try {
             return MAPPER.readValue(value, reference);
         } catch (JsonProcessingException e) {
@@ -115,7 +124,11 @@ public final class JacksonUtil {
      * @param tClass target type class
      * @return {@link List}<{@link T}>
      */
-    public static <T> List<T> parseJson(@NotNull List<String> values, Class<T> tClass) {
+    @Nullable
+    public static <T> List<T> parseJson(List<String> values, Class<T> tClass) {
+        if (values == null) {
+            return null;
+        }
         return values.parallelStream()
                 .map(e -> parseJson(e, tClass))
                 .collect(Collectors.toList());
@@ -128,7 +141,11 @@ public final class JacksonUtil {
      * @param reference reference
      * @return {@link List}<{@link T}>
      */
-    public static <T> List<T> parseJson(@NotNull List<String> values, TypeReference<T> reference) {
+    @Nullable
+    public static <T> List<T> parseJson(List<String> values, TypeReference<T> reference) {
+        if (values == null) {
+            return null;
+        }
         return values.parallelStream()
                 .map(e -> parseJson(e, reference))
                 .collect(Collectors.toList());
@@ -141,7 +158,11 @@ public final class JacksonUtil {
      * @param tClass target type class
      * @return {@link List}<{@link T}>
      */
-    public static <T> Set<T> parseJson(@NotNull Set<String> values, Class<T> tClass) {
+    @Nullable
+    public static <T> Set<T> parseJson(Set<String> values, Class<T> tClass) {
+        if (values == null) {
+            return null;
+        }
         return values.parallelStream()
                 .map(e -> parseJson(e, tClass))
                 .collect(Collectors.toSet());
@@ -154,7 +175,11 @@ public final class JacksonUtil {
      * @param reference reference
      * @return {@link Set}<{@link T}>
      */
-    public static <T> Set<T> parseJson(@NotNull Set<String> values, TypeReference<T> reference) {
+    @Nullable
+    public static <T> Set<T> parseJson(Set<String> values, TypeReference<T> reference) {
+        if (values == null) {
+            return null;
+        }
         return values.parallelStream()
                 .map(e -> parseJson(e, reference))
                 .collect(Collectors.toSet());

@@ -1,6 +1,7 @@
 package cn.tangshh.universal.core.util;
 
 import cn.hutool.core.util.StrUtil;
+import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 正则工具类
+ * Regex Util
  *
  * @author Tang
  * @version v1.0
@@ -20,45 +21,42 @@ public final class RegexUtil {
     }
 
     /**
-     * 正则替换
+     * Regex replace content
      *
-     * @param str     原String
-     * @param regex   正则表达式
-     * @param replace 替换的value
-     * @return {@link String} 替换结果
+     * @param content source data
+     * @param regex   regex expression
+     * @param replace replace expression
+     * @return {@link String}
      */
-    public static String regexReplace(String str, String regex, String replace) {
-        if (StrUtil.isEmpty(str)) {
-            return str;
-        }
-        return str.replaceAll(regex, replace);
+    public static String replace(@NotNull String content, @NotNull String regex, @NotNull String replace) {
+        return content.replaceAll(regex, replace);
     }
 
     /**
-     * 正则校验
+     * Regex verify content
      *
-     * @param str   校验String
-     * @param regex 正则表达式
-     * @return boolean 校验结果
+     * @param content source data
+     * @param regex   regex expression
+     * @return boolean
      */
-    public static boolean regexVerify(String str, String regex) {
-        if (StrUtil.isAllNotEmpty(str, regex)) {
-            return str.matches(regex);
+    public static boolean verify(String content, String regex) {
+        if (StrUtil.isAllNotEmpty(content, regex)) {
+            return content.matches(regex);
         }
         return false;
     }
 
     /**
-     * 正则搜索所有
+     * Regex search content return all
      *
-     * @param str   搜索String
-     * @param regex 正则表达式
+     * @param content source data
+     * @param regex   regex expression
      * @return {@link List}<{@link String}> 搜索结果
      */
-    public static List<String> regexSearchAll(String str, String regex) {
+    public static List<String> searchAll(String content, String regex) {
         List<String> matches = new ArrayList<>();
         Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(str);
+        Matcher matcher = pattern.matcher(content);
         while (matcher.find()) {
             matches.add(matcher.group());
         }
@@ -66,15 +64,15 @@ public final class RegexUtil {
     }
 
     /**
-     * 正则搜索首个
+     * Regex search content return first
      *
-     * @param str   搜索String
-     * @param regex 正则表达式
-     * @return {@link String} 首个匹配结果
+     * @param content source data
+     * @param regex   regex expression
+     * @return {@link String}
      */
-    public static String regexSearchFirst(String str, String regex) {
+    public static String searchFirst(String content, String regex) {
         Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(str);
+        Matcher matcher = pattern.matcher(content);
         if (matcher.find()) {
             return matcher.group();
         }
@@ -82,14 +80,14 @@ public final class RegexUtil {
     }
 
     /**
-     * 正则搜索最后一个
+     * Regex search content return last
      *
-     * @param str   搜索String
-     * @param regex 正则表达式
-     * @return {@link String} 最后一个匹配结果
+     * @param content source data
+     * @param regex   regex expression
+     * @return {@link String}
      */
-    public static String regexSearchLast(String str, String regex) {
-        List<String> result = regexSearchAll(str, regex);
+    public static String searchLast(String content, String regex) {
+        List<String> result = searchAll(content, regex);
         if (result.isEmpty()) {
             return StrUtil.EMPTY;
         }

@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/test")
-@Tag(name = "测试控制器", description = "测试控制器......")
+@Tag(name = "TestController", description = "Related test interface")
 public class TestController {
 
     @GetMapping("/1")
-    @Operation(summary = "测试接口1")
+    @Operation(summary = "test01")
     public String test01() {
         return "success";
     }

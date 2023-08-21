@@ -1,8 +1,8 @@
 springdoc:
   swagger-ui:
-    use-root-path: true # 根路径跳转接口文档
+    use-root-path: true # set project web root index to api doc
   group-configs:
-    - group: default
+    - group: default # set a default group
       paths-to-match:
         - /**
 

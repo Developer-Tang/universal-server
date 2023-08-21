@@ -27,7 +27,7 @@ public final class RedisListUtil extends RedisUtil {
     }
 
     /**
-     * query value size
+     * query list size
      *
      * @param key key
      * @return {@link Long}

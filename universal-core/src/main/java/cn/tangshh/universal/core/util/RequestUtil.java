@@ -77,7 +77,7 @@ public final class RequestUtil {
     /**
      * Get request uri
      *
-     * @return {@link String} 请求路径
+     * @return {@link String}
      */
     public static String getReqUri() {
         HttpServletRequest request = getRequest();
