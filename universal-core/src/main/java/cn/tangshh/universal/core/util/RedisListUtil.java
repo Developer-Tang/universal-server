@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Redis List Util
+ * <p>Redis List Util</p>
+ * <p>Redis List类型工具</p>
  *
  * @author Tang
  * @version v1.0
@@ -27,7 +28,8 @@ public final class RedisListUtil extends RedisUtil {
     }
 
     /**
-     * query list size
+     * <p>Query list size</p>
+     * <p>查询列表元素数量</p>
      *
      * @param key key
      * @return {@link Long}
@@ -38,7 +40,8 @@ public final class RedisListUtil extends RedisUtil {
     }
 
     /**
-     * query value by index
+     * <p>Query value by index</p>
+     * <p>通过索引查询值</p>
      *
      * @param key   key
      * @param index 索引
@@ -50,7 +53,8 @@ public final class RedisListUtil extends RedisUtil {
     }
 
     /**
-     * query value first index
+     * <p>The index position of the first occurrence of the query value</p>
+     * <p>查询值第一次出现的索引位置</p>
      *
      * @param key   key
      * @param value value
@@ -61,7 +65,8 @@ public final class RedisListUtil extends RedisUtil {
     }
 
     /**
-     * query value last index
+     * <p>The index position of the last occurrence of the query value</p>
+     * <p>查询值最后一次出现的索引位置</p>
      *
      * @param key   key
      * @param value value
@@ -73,7 +78,8 @@ public final class RedisListUtil extends RedisUtil {
     }
 
     /**
-     * query all value
+     * <p>Query all value</p>
+     * <p>查询全部值</p>
      *
      * @param key key
      * @return {@link List}<{@link String}>
@@ -83,7 +89,8 @@ public final class RedisListUtil extends RedisUtil {
     }
 
     /**
-     * query in range value
+     * <p>Query values within range</p>
+     * <p>查询范围内的值</p>
      *
      * @param key   key
      * @param start start index
@@ -97,6 +104,10 @@ public final class RedisListUtil extends RedisUtil {
 
 
     /**
+     * <p>Remove values outside of range</p>
+     * <p>移除超出范围的值</p>
+     * <p>ps: end > start,remove all(移除全部)</p>
+     *
      * @param key   key
      * @param start start index
      * @param end   end index
@@ -106,7 +117,8 @@ public final class RedisListUtil extends RedisUtil {
     }
 
     /**
-     * Remove a value
+     * <p>Remove a value</p>
+     * <p>删除一个值</p>
      *
      * @param key   key
      * @param value value
@@ -117,11 +129,12 @@ public final class RedisListUtil extends RedisUtil {
     }
 
     /**
-     * Remove many value
+     * <p>Remove multiple value</p>
+     * <p>删除多个值</p>
      *
      * @param key   key
      * @param value value
-     * @param count 计数
+     * @param count count
      * @return {@link Long}
      */
     @Nullable
@@ -131,18 +144,20 @@ public final class RedisListUtil extends RedisUtil {
 
 
     /**
-     * Add value to index
+     * <p>Add value to index</p>
+     * <p>添加值到索引</p>
      *
      * @param key   key
      * @param value value
-     * @param index 索引
+     * @param index index
      */
     public static void set(@NotNull String key, long index, Object value) {
         OPERATIONS.set(key, index, JacksonUtil.toJson(value));
     }
 
     /**
-     * Left push  value
+     * <p>Left push a value</p>
+     * <p>左侧推入一个值</p>
      *
      * @param key   key
      * @param value value
@@ -154,10 +169,11 @@ public final class RedisListUtil extends RedisUtil {
     }
 
     /**
-     * Left push value
+     * <p>Left push multiple value</p>
+     * <p>左侧推入多个值</p>
      *
      * @param key    key
-     * @param values value
+     * @param values values
      * @return {@link Long}
      */
     @Nullable
@@ -166,10 +182,11 @@ public final class RedisListUtil extends RedisUtil {
     }
 
     /**
-     * Left push value
+     * <p>Left push multiple value</p>
+     * <p>左侧推入多个值</p>
      *
      * @param key    key
-     * @param values value
+     * @param values values
      * @return {@link Long}
      */
     @Nullable
@@ -178,7 +195,8 @@ public final class RedisListUtil extends RedisUtil {
     }
 
     /**
-     * If exist key then left push value
+     * <p>If key exist then left push a value</p>
+     * <p>如果键存在则左侧推入一个值</p>
      *
      * @param key   key
      * @param value value
@@ -190,7 +208,8 @@ public final class RedisListUtil extends RedisUtil {
     }
 
     /**
-     * Left pop a value
+     * <p>Left pop a value</p>
+     * <p>左侧弹出一个值</p>
      *
      * @param key key
      * @return {@link String}
@@ -201,7 +220,8 @@ public final class RedisListUtil extends RedisUtil {
     }
 
     /**
-     * Left pop a value
+     * <p>Left pop a value</p>
+     * <p>左侧弹出一个值</p>
      *
      * @param key     key
      * @param maxWait max wait time
@@ -214,7 +234,8 @@ public final class RedisListUtil extends RedisUtil {
     }
 
     /**
-     * Left pop a value
+     * <p>Left pop a value</p>
+     * <p>左侧弹出一个值</p>
      *
      * @param key      key
      * @param duration time
@@ -227,7 +248,8 @@ public final class RedisListUtil extends RedisUtil {
 
 
     /**
-     * Left pop many value
+     * <p>Left pop multiple value</p>
+     * <p>左侧弹出多个值</p>
      *
      * @param key   key
      * @param count 计数
@@ -238,7 +260,8 @@ public final class RedisListUtil extends RedisUtil {
     }
 
     /**
-     * Right push value
+     * <p>Right push a value</p>
+     * <p>右侧推入一个值</p>
      *
      * @param key   key
      * @param value value
@@ -250,10 +273,11 @@ public final class RedisListUtil extends RedisUtil {
     }
 
     /**
-     * Right push value
+     * <p>Right push multiple value</p>
+     * <p>右侧推入多个值</p>
      *
      * @param key    key
-     * @param values value
+     * @param values values
      * @return {@link Long}
      */
     @Nullable
@@ -262,7 +286,8 @@ public final class RedisListUtil extends RedisUtil {
     }
 
     /**
-     * If key exist then right push value
+     * <p>If key exist then right push a value</p>
+     * <p>如果键存在则右侧推入一个值</p>
      *
      * @param key   key
      * @param value value
@@ -274,7 +299,8 @@ public final class RedisListUtil extends RedisUtil {
     }
 
     /**
-     * Right pop a value
+     * <p>Right pop a value</p>
+     * <p>右侧弹出一个值</p>
      *
      * @param key key
      * @return {@link String}
@@ -285,7 +311,8 @@ public final class RedisListUtil extends RedisUtil {
     }
 
     /**
-     * Right pop a value
+     * <p>Right pop a value</p>
+     * <p>右侧弹出一个值</p>
      *
      * @param key     key
      * @param maxWait max wait time
@@ -297,7 +324,8 @@ public final class RedisListUtil extends RedisUtil {
     }
 
     /**
-     * Right pop a value
+     * <p>Right pop a value</p>
+     * <p>右侧弹出一个值</p>
      *
      * @param key      key
      * @param duration time
@@ -309,7 +337,8 @@ public final class RedisListUtil extends RedisUtil {
     }
 
     /**
-     * Right pop many value
+     * <p>Right pop multiple value</p>
+     * <p>右侧弹出多个值</p>
      *
      * @param key   key
      * @param count 计数
@@ -321,7 +350,8 @@ public final class RedisListUtil extends RedisUtil {
     }
 
     /**
-     * Right pop value and left push value
+     * <p>Right pop a value and left push a value</p>
+     * <p>右侧弹出一个值并左侧推一个值</p>
      *
      * @param key   key
      * @param value value
@@ -333,7 +363,8 @@ public final class RedisListUtil extends RedisUtil {
     }
 
     /**
-     * Right pop value and left push value
+     * <p>Right pop a value and left push a value</p>
+     * <p>右侧弹出一个值并左侧推一个值</p>
      *
      * @param key     key
      * @param value   value
@@ -346,7 +377,8 @@ public final class RedisListUtil extends RedisUtil {
     }
 
     /**
-     * Right pop value and left push value
+     * <p>Right pop a value and left push a value</p>
+     * <p>右侧弹出一个值并左侧推一个值</p>
      *
      * @param key      key
      * @param value    value

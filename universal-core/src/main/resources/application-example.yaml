@@ -7,3 +7,13 @@ springdoc:
   title: <your docs title>
   version: <your docs version>
   authHeader: <your api authentication request head>
+
+spring:
+  mail:
+    host: <your email server host>
+    port: <your email server port>
+    username: <your email address>
+    password: <your password>
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true

@@ -13,7 +13,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Redis Set Util
+ * <p>Redis Set Util</p>
+ * <p>Redis Set类型工具</p>
  *
  * @author Tang
  * @version v1.0
@@ -29,7 +30,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * query set size
+     * <p>Query set size</p>
+     * <p>查询集合元素数量</p>
      *
      * @param key key
      * @return {@link Long}
@@ -40,7 +42,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Is exist value
+     * <p>Is exist value</p>
+     * <p>是否存在值</p>
      *
      * @param key   key
      * @param value value
@@ -51,7 +54,9 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Scan key by expression
+     * <p>Scan key by expression (* match anything)</p>
+     * <p>通过表达式查询键（*匹配任意内容）</p>
+     * <p>example: user:*,2023*,*09</p>
      *
      * @param key        key
      * @param expression expression
@@ -68,7 +73,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Add values
+     * <p>Add multiple value</p>
+     * <p>添加多个值</p>
      *
      * @param key    key
      * @param values value
@@ -80,7 +86,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Remove values
+     * <p>Remove multiple value</p>
+     * <p>删除多个值</p>
      *
      * @param key    key
      * @param values value
@@ -92,7 +99,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Get value difference collection
+     * <p>Get the difference with another set of values</p>
+     * <p>获取与另一组值的差集</p>
      *
      * @param key      key
      * @param otherKey contrast key
@@ -104,7 +112,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Get value difference collection
+     * <p>Get the difference with other multiple sets of values</p>
+     * <p>获取与其他多组值的差集</p>
      *
      * @param key       key
      * @param otherKeys other key
@@ -116,7 +125,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Get value difference collection
+     * <p>Get the difference set of multiple sets of values</p>
+     * <p>获取多组值的差集</p>
      *
      * @param keys keys
      * @return {@link Set}<{@link String}>
@@ -127,7 +137,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Get value difference count
+     * <p>Get the difference with another set of values and store it in a new key</p>
+     * <p>获取与另一组值的差集，并存储到新键</p>
      *
      * @param key      key
      * @param otherKey other key
@@ -139,7 +150,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Get value difference and save to new key
+     * <p>Get the difference with other multiple sets of values and store it in a new key</p>
+     * <p>获取与其他多组值的差集，并存储到新键</p>
      *
      * @param key       key
      * @param otherKeys other key
@@ -152,7 +164,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Get value difference and save to new key
+     * <p>Get the difference set of multiple sets of values and store it in a new key</p>
+     * <p>获取多组值的差集，并存储到新键</p>
      *
      * @param keys     keys
      * @param storeKey new key
@@ -164,7 +177,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Get value intersect collection
+     * <p>Get the intersect with another set of values</p>
+     * <p>获取与另一组值的交集</p>
      *
      * @param key      key
      * @param otherKey other key
@@ -176,7 +190,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Get value intersect collection
+     * <p>Get the intersect with other multiple sets of values</p>
+     * <p>获取与其他多组值的交集</p>
      *
      * @param key       key
      * @param otherKeys other key
@@ -188,7 +203,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Get value intersect collection
+     * <p>Get the intersect set of multiple sets of values</p>
+     * <p>获取多组值的交集</p>
      *
      * @param keys keys
      * @return {@link Set}<{@link String}>
@@ -199,7 +215,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Get value intersect and save to new key
+     * <p>Get the intersect with another set of values and store it in a new key</p>
+     * <p>获取与另一组值的交集，并存储到新键</p>
      *
      * @param key      key
      * @param otherKey other key
@@ -211,7 +228,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Get value intersect and save to new key
+     * <p>Get the intersect with other multiple sets of values and store it in a new key</p>
+     * <p>获取与其他多组值的交集，并存储到新键</p>
      *
      * @param key       key
      * @param otherKeys other key
@@ -224,7 +242,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Get value intersect and save to new key
+     * <p>Get the intersect set of multiple sets of values and store it in a new key</p>
+     * <p>获取多组值的交集，并存储到新键</p>
      *
      * @param keys     keys
      * @param storeKey new key
@@ -236,7 +255,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Get value union collection
+     * <p>Get the union with another set of values</p>
+     * <p>获取与另一组值的并集</p>
      *
      * @param key      key
      * @param otherKey other key
@@ -248,7 +268,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Get value union collection
+     * <p>Get the union with other multiple sets of values</p>
+     * <p>获取与其他多组值的并集</p>
      *
      * @param key       key
      * @param otherKeys other key
@@ -260,7 +281,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Get value union collection
+     * <p>Get the union set of multiple sets of values</p>
+     * <p>获取多组值的并集</p>
      *
      * @param otherKeys other key
      * @return {@link Set}<{@link String}>
@@ -271,7 +293,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Get value union and save to new key
+     * <p>Get the union with another set of values and store it in a new key</p>
+     * <p>获取与另一组值的并集，并存储到新键</p>
      *
      * @param key      key
      * @param otherKey other key
@@ -284,7 +307,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Get value union and save to new key
+     * <p>Get the union with other multiple sets of values and store it in a new key</p>
+     * <p>获取与其他多组值的并集，并存储到新键</p>
      *
      * @param key       key
      * @param otherKeys other key
@@ -297,7 +321,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Get value union and save to new key
+     * <p>Get the union set of multiple sets of values and store it in a new key</p>
+     * <p>获取多组值的并集，并存储到新键</p>
      *
      * @param keys     key
      * @param storeKey new key
@@ -309,7 +334,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Pop a value
+     * <p>Random pop a value </p>
+     * <p>随机弹出一个值</p>
      *
      * @param key key
      * @return {@link String}
@@ -320,7 +346,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Pop many value
+     * <p>Random pop multiple value (Random)</p>
+     * <p>随机弹出多个值</p>
      *
      * @param key   key
      * @param count count
@@ -332,7 +359,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Random get a value
+     * <p>Random get a value</p>
+     * <p>随机获取一个值</p>
      *
      * @param key key
      * @return {@link String}
@@ -342,7 +370,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Random get many value
+     * <p>Random get multiple value</p>
+     * <p>随机获取多个值</p>
      *
      * @param key   key
      * @param count count
@@ -354,7 +383,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Randomly get many different values
+     * <p>Random get multiple different value</p>
+     * <p>随机获取多个不同的值</p>
      *
      * @param key   key
      * @param count count
@@ -367,7 +397,8 @@ public final class RedisSetUtil extends RedisUtil {
 
 
     /**
-     * Get all value
+     * <p>获取所有值</p>
+     * <p>Get all values</p>
      *
      * @param key key
      * @return {@link Set}<{@link String}>
@@ -378,7 +409,8 @@ public final class RedisSetUtil extends RedisUtil {
     }
 
     /**
-     * Move all value to new key
+     * <p>Move all value to new key</p>
+     * <p>移动全部值到新键</p>
      *
      * @param key   key
      * @param value value

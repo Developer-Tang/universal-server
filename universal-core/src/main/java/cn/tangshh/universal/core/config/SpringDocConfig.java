@@ -13,7 +13,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * SpringDoc Config
+ * <p>SpringDoc Config</p>
+ * <p>SpringDoc API文档配置</p>
  *
  * @author Tang
  * @version v1.0
@@ -23,13 +24,17 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "springdoc")
 @ConditionalOnClass(SpringDocConfiguration.class)
 public class SpringDocConfig {
+    /** API docs author */
     private String author = "";
+    /** API docs title */
     private String title = "API Development Docs";
+    /** API version */
     private String version = "1.0";
+    /** authorization request */
     private String authHeader = "Authorization";
 
     @Bean
-    public OpenAPI openAPI() {
+    public OpenAPI openApi() {
         return new OpenAPI()
                 // Describe info
                 .info(new Info()

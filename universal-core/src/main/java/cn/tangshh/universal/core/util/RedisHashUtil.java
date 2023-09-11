@@ -10,7 +10,8 @@ import org.springframework.data.redis.core.ScanOptions;
 import java.util.*;
 
 /**
- * Redis Hash Util
+ * <p>Redis Hash Util</p>
+ * <p>Redis Hash类型工具</p>
  *
  * @author Tang
  * @version v1.0
@@ -26,7 +27,8 @@ public final class RedisHashUtil extends RedisUtil {
     }
 
     /**
-     * query hash key size
+     * <p>Query hash key size</p>
+     * <p>查询Hash键数量</p>
      *
      * @param key key
      * @return {@link Long}
@@ -36,7 +38,8 @@ public final class RedisHashUtil extends RedisUtil {
     }
 
     /**
-     * Is exist hash key
+     * <p>Is exist hash key</p>
+     * <p>是否存在Hash键</p>
      *
      * @param key     key
      * @param hashKey hash key
@@ -47,7 +50,9 @@ public final class RedisHashUtil extends RedisUtil {
     }
 
     /**
-     * Scan key by expression
+     * <p>Scan key by expression (* match anything)</p>
+     * <p>通过表达式查询键（*匹配任意内容）</p>
+     * <p>example: user:*,2023*,*09</p>
      *
      * @param key        key
      * @param expression scan expression
@@ -65,7 +70,8 @@ public final class RedisHashUtil extends RedisUtil {
     }
 
     /**
-     * Get all hash key
+     * <p>Get all hash key</p>
+     * <p>获取全部Hash键</p>
      *
      * @param key key
      * @return {@link Set}<{@link String}>
@@ -75,7 +81,8 @@ public final class RedisHashUtil extends RedisUtil {
     }
 
     /**
-     * Get hash value
+     * <p>Get hash value</p>
+     * <p>获取Hash值</p>
      *
      * @param key     key
      * @param hashKey hash key
@@ -87,7 +94,8 @@ public final class RedisHashUtil extends RedisUtil {
     }
 
     /**
-     * Get many hash value
+     * <p>Get multiple hash value</p>
+     * <p>获取获取多个Hash值</p>
      *
      * @param key      key
      * @param hashKeys hash key
@@ -98,7 +106,8 @@ public final class RedisHashUtil extends RedisUtil {
     }
 
     /**
-     * Get all key-value
+     * <p>Get all key-value</p>
+     * <p>获取全部键值对</p>
      *
      * @param key key
      * @return {@link Map}<{@link String}, {@link String}>
@@ -108,7 +117,8 @@ public final class RedisHashUtil extends RedisUtil {
     }
 
     /**
-     * Get all hash value
+     * <p>Get all hash value</p>
+     * <p>获取全部Hash值</p>
      *
      * @param key key
      * @return {@link List}<{@link String}>
@@ -118,7 +128,8 @@ public final class RedisHashUtil extends RedisUtil {
     }
 
     /**
-     * Add hash value
+     * <p>Add hash value</p>
+     * <p>添加Hash值</p>
      *
      * @param key       key
      * @param hashKey   hash key
@@ -129,7 +140,8 @@ public final class RedisHashUtil extends RedisUtil {
     }
 
     /**
-     * Batch add
+     * <p>Batch add key-value</p>
+     * <p>批量添加键值对</p>
      *
      * @param key key
      * @param map key-value
@@ -139,7 +151,8 @@ public final class RedisHashUtil extends RedisUtil {
     }
 
     /**
-     * If hash key not exist then add
+     * <p>If hash key not exist then add</p>
+     * <p>如果Hash值不存在则添加</p>
      *
      * @param key       key
      * @param hashKey   hash key
@@ -151,7 +164,8 @@ public final class RedisHashUtil extends RedisUtil {
     }
 
     /**
-     * hash value increment
+     * <p>Hash value increment</p>
+     * <p>Hash值自增</p>
      *
      * @param key     key
      * @param hashKey hash key
@@ -163,7 +177,8 @@ public final class RedisHashUtil extends RedisUtil {
 
 
     /**
-     * hash value increment
+     * <p>Hash value increment</p>
+     * <p>Hash值自增</p>
      *
      * @param key       key
      * @param hashKey   hash key
@@ -176,7 +191,8 @@ public final class RedisHashUtil extends RedisUtil {
 
 
     /**
-     * hash value increment
+     * <p>Hash value increment</p>
+     * <p>Hash值自增</p>
      *
      * @param key       key
      * @param hashKey   hash key
@@ -188,7 +204,8 @@ public final class RedisHashUtil extends RedisUtil {
     }
 
     /**
-     * Random get a hash key
+     * <p>Random get a hash key</p>
+     * <p>随机获取一个Hash值</p>
      *
      * @param key key
      * @return {@link String}
@@ -199,7 +216,8 @@ public final class RedisHashUtil extends RedisUtil {
 
 
     /**
-     * Random get much hash key
+     * <p>Random get multiple hash key</p>
+     * <p>随机获取多个Hash键</p>
      *
      * @param key   key
      * @param count count
@@ -210,7 +228,8 @@ public final class RedisHashUtil extends RedisUtil {
     }
 
     /**
-     * Random get a key-value
+     * <p>Random get a key-value</p>
+     * <p>随机获取一个键值对</p>
      *
      * @param key key
      * @return {@link Map.Entry}<{@link String}, {@link String}>
@@ -220,7 +239,8 @@ public final class RedisHashUtil extends RedisUtil {
     }
 
     /**
-     * Random get much key-value
+     * <p>Random get multiple key-value</p>
+     * <p>随机获取多个键值对</p>
      *
      * @param key   key
      * @param count count
@@ -231,7 +251,8 @@ public final class RedisHashUtil extends RedisUtil {
     }
 
     /**
-     * Delete
+     * <p>Delete multiple hash value</p>
+     * <p>删除多个Hash值</p>
      *
      * @param key      key
      * @param hashKeys hash key

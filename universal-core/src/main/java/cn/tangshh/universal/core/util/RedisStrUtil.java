@@ -13,7 +13,8 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Redis String Util
+ * <p>Redis String Util</p>
+ * <p>Redis String类型工具s</p>
  *
  * @author Tang
  * @version v1.0
@@ -29,7 +30,8 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * Append value
+     * <p>Append value</p>
+     * <p>追加值</p>
      *
      * @param key   key
      * @param value value
@@ -41,7 +43,9 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * value increment
+     * <p>Value increment</p>
+     * <p>值自增</p>
+     * <p>ps: 键不存在则新增并从零开始计算</p>
      *
      * @param key       key
      * @param increment increment
@@ -180,7 +184,7 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * Set many key-value
+     * Set multiple key-value
      *
      * @param map {key:value,key:value,...}
      */
@@ -191,7 +195,7 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * Set many key-value if all not exist
+     * Set multiple key-value if all not exist
      *
      * @param map {key:value,key:value,...}
      * @return boolean
@@ -212,7 +216,7 @@ public final class RedisStrUtil extends RedisUtil {
     }
 
     /**
-     * Get many value
+     * Get multiple value
      *
      * @param keys keys
      * @return {@link List}<{@link String}>

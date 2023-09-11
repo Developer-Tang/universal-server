@@ -1,3 +1,10 @@
+spring:
+  thymeleaf:
+    check-template-location: false # clear thymeleaf file path check
+  main:
+    banner-mode: off # close banner log output
+
+
 springdoc:
   swagger-ui:
     use-root-path: true # set project web root index to api doc

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/test")
-@Tag(name = "TestController", description = "Related test interface")
+@Tag(name = "Test Model", description = "Related test interface")
 public class TestController {
 
     @GetMapping("/1")

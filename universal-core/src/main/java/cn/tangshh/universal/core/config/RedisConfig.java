@@ -9,7 +9,8 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 /**
- * Redis Config
+ * <p>Redis Config</p>
+ * <p>Redis配置类</p>
  *
  * @author Tang
  * @version v1.0
